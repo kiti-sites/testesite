@@ -4,9 +4,12 @@
     <link rel="stylesheet" href="./styles.css" />
     <title>site</title>
 </head><script src="https://cdn.websitepolicies.io/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.addEventListener("load",function(){window.wpcc.init({"border":"thin","corners":"small","colors":{"popup":{"background":"#222222","text":"#ffffff","border":"#b5e1a0"},"button":{"background":"#b5e1a0","text":"#000000"}},"position":"top","pushdown":true,"content":{"message":"Esse site usa cookies!","button":"Aceitar"}})});</script>
-    
-
-
+<script>    
+  const button = document.getElementById(‘signout_button’);
+    button.onclick = () => {
+      google.accounts.id.disableAutoSelect();
+    }
+    </script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <div id="g_id_onload"
      data-client_id="307710390966-qein4t7bcrl3ggp2ht0l2m00haplmu89.apps.googleusercontent.com"
@@ -31,6 +34,7 @@
         }
 </script>
     <div id="buttonDiv"></div>
+    <div class="g_id_signout">Sign Out</div>
 <form name="login/sign in" method="POST" data-netlify="true">
   <p>
     <label>Seu Nome: <input type="text" name="name" /></label>
