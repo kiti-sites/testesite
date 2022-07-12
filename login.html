@@ -7,30 +7,33 @@
     
 
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{535293214724952}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{api-version}'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+        function handleCredentialResponse(response) {
+          const data = jwt_decode(response.credential)
+          console.log(data)
+            
+          fullName.textContent = data.name
+          sub.textContent = data.sub
+          given_name.textContent = data.given_name
+          family_name.textContent = data.family_name
+          email.textContent = data.email
+          picture.setAtribute("src", data.picture)
+        }
+    
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "307710390966-qein4t7bcrl3ggp2ht0l2m00haplmu89.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            {theme: "filled_black", size: "large"}  // customization attributes
+          );
+          google.accounts.id.prompt(); // also display the One Tap dialog
+        }
 </script>
-    <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v14.0&appId=402626114911749&autoLogAppEvents=1" nonce="MVGLz03C"></script>
-<div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="true" data-use-continue-as="true"></div>
+    <div id="buttonDiv"></div>
 <form name="login/sign in" method="POST" data-netlify="true">
   <p>
     <label>Seu Nome: <input type="text" name="name" /></label>
